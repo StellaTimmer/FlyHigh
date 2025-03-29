@@ -6,6 +6,7 @@ import com.example.flyhigh.persistence.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,8 +16,17 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SearchFlightsService {
 
-    public List<FlightDto> findFlights() {
-        return FlightRepository.allFlights();
+    public List<FlightDto> findFlights(String startCity, String endCity, LocalDate date, Integer maxPrice) {
+        ArrayList<FlightDto> matchingFlights = new ArrayList<>();
+        for (FlightDto flight : FlightRepository.allFlights()) {
+            if (flight.hasStartCityIfNotNull(startCity)
+                    && flight.hasEndCityIfNotNull(endCity)
+                    && flight.hasDateIfNotNull(date)
+                    && flight.cheaperThanIfNotNull(maxPrice)) {
+                matchingFlights.add(flight);
+            }
+        }
+        return matchingFlights;
     }
 
     public List<CityDto> allCities() {

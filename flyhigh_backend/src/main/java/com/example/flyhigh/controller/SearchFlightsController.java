@@ -18,15 +18,33 @@ public class SearchFlightsController {
 
     @GetMapping("/flights/search")
     @Operation(summary = "Searches for available flights")
-    public List<FlightDto> searchFlights() {
-        // TODO filtrid
-        return searchFlightsService.findFlights();
+    public List<FlightDto> searchFlights(
+            @RequestParam String startCity,
+            @RequestParam String endCity,
+            @RequestParam String date,
+            @RequestParam Integer maxPrice
+    ) {
+        startCity = cityOrNull(startCity);
+        endCity = cityOrNull(endCity);
+
+        LocalDate parsedDate = null;
+        if (date != null && !date.isEmpty()) {
+            parsedDate = LocalDate.parse(date);
+        };
+
+        return searchFlightsService.findFlights(startCity, endCity, parsedDate, maxPrice);
     }
 
     @GetMapping("/flights/cities")
     @Operation(summary = "Get all available cities")
     public List<CityDto> allCities() {
         return searchFlightsService.allCities();
+    }
+
+    private String cityOrNull(String city) {
+        if (city == null) { return null; }
+        if (city.isEmpty()) { return null; }
+        return city;
     }
 
 }
