@@ -22,7 +22,7 @@ public class SearchFlightsController {
             @RequestParam String startCity,
             @RequestParam String endCity,
             @RequestParam String date,
-            @RequestParam Integer maxPrice
+            @RequestParam(required = false) Integer maxPrice
     ) {
         startCity = cityOrNull(startCity);
         endCity = cityOrNull(endCity);
