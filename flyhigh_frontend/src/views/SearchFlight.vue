@@ -3,17 +3,30 @@
     <div class="container text-center">
       <div class="row">
         <div class="col">
+          Lähtekoht
+          <CitySelect
+              :cities="cities"
+              v-model="startCity"
+          />
+        </div>
+        <div class="col">
           Sihtkoht
+          <CitySelect
+              :cities="cities"
+              v-model="endCity"
+          />
         </div>
         <div class="col">
           Kuupäev
-          <input type="date"
+          <input v-model="date"
+                 type="date"
                  class="form-control"
                  >
         </div>
         <div class="col">
           Max hind
-          <input type="number"
+          <input v-model="maxPrice"
+                 type="number"
                  class="form-control"
                  min="1">
         </div>
@@ -23,6 +36,7 @@
           </div>
         </div>
       </div>
+      <br>
     </div>
     <div class="row">
       <hr>
@@ -59,27 +73,46 @@
 
 import SearchFlightsService from "@/services/SearchFlightsService";
 import FlightResult from "@/components/FlightResult.vue";
+import CitySelect from "@/components/CitySelect.vue";
 
 export default {
   name: 'SearchFlight',
   components: {
+    CitySelect,
     FlightResult
   },
   data() {
     return {
+      startCity: null,
+      endCity: null,
+      date: null,
+      maxPrice: null,
+      cities: [],
       flights: [],
     }
   },
   methods: {
+    getCities() {
+      SearchFlightsService.getAllCities()
+          .then(response => { this.handleCitiesResponse(response) })
+          .catch(error => console.log(error));
+    },
+    handleCitiesResponse(response) {
+        this.cities = response.data;
+        console.log(this.cities);
+    },
     onclickSearchFlights() {
-      SearchFlightsService.searchFlights()
+      SearchFlightsService.searchFlights(this.startCity, this.endCity, this.date, this.maxPrice)
           .then(response => this.handleSearchFlightsResponse(response))
           .catch(error => console.log(error));
     },
     handleSearchFlightsResponse(response) {
       this.flights = response.data;
       console.log(this.flights);
-    }
+    },
+  },
+  beforeMount() {
+    this.getCities();
   }
 }
 </script>

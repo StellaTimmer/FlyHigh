@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/">Lennud</router-link>
+    <router-link to="/">FlyHigh Lennuportaal</router-link>
   </nav>
   <router-view/>
 </template>

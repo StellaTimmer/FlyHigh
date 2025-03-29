@@ -22,4 +22,11 @@ public class SearchFlightsController {
         // TODO filtrid
         return searchFlightsService.findFlights();
     }
+
+    @GetMapping("/flights/cities")
+    @Operation(summary = "Get all available cities")
+    public List<CityDto> allCities() {
+        return searchFlightsService.allCities();
+    }
+
 }
