@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/SearchFlight.vue'
+import SearchFlight from "@/views/SearchFlight.vue";
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'search',
+    component: SearchFlight
   },
   {
     path: '/seats',
