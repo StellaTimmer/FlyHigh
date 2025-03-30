@@ -32,7 +32,7 @@
         </div>
         <div class="col">
           <div class="mt-4">
-            <button @click="onclickSearchFlights" type="button" class="btn btn-outline-success">Otsi</button>
+            <button @click="onclickSearchFlights" type="button" class="btn btn-outline-primary">Otsi</button>
           </div>
         </div>
       </div>
