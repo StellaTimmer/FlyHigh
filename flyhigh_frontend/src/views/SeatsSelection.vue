@@ -63,5 +63,9 @@ export default {
 
 .lennuk {
   background-image: url("@/assets/lennuk.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: 1200px;
 }
 </style>
