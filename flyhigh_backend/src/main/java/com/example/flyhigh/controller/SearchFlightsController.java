@@ -19,9 +19,9 @@ public class SearchFlightsController {
     @GetMapping("/flights/search")
     @Operation(summary = "Searches for available flights")
     public List<FlightDto> searchFlights(
-            @RequestParam String startCity,
-            @RequestParam String endCity,
-            @RequestParam String date,
+            @RequestParam(required = false) String startCity,
+            @RequestParam(required = false) String endCity,
+            @RequestParam(required = false) String date,
             @RequestParam(required = false) Integer maxPrice
     ) {
         startCity = cityOrNull(startCity);
