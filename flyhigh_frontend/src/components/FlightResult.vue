@@ -6,12 +6,14 @@
   <td>{{ startCity }}</td>
   <td>{{ endCity }}</td>
   <td>{{ priceEuros }} eur</td>
-  <td><button class="btn btn-sm btn-outline-success">Istekohad</button></td>
+  <td><button class="btn btn-sm btn-outline-success" @click="goToSeatsView">Istekohad</button></td>
 </tr>
 </template>
 
 
 <script>
+import NavigationService from "@/services/NavigationService";
+
 export default {
   name: 'FlightResult',
   props: {
@@ -24,6 +26,9 @@ export default {
   methods: {
     shortTime() {
       return this.time.substring(0, 5);
+    },
+    goToSeatsView() {
+      NavigationService.goToSeatsView();
     }
   }
 }
